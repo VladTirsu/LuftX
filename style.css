@@ -1,0 +1,219 @@
+@font-face {
+  font-family: "Game Paused Demo";
+  src: url("Fonts/Game Paused DEMO.otf") format("opentype");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+/* Start Screen */
+#startScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#startBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#startScreen .title,
+#startScreen #startButton {
+  position: relative;
+  z-index: 2;
+}
+
+#startScreen .title {
+  color: black;
+}
+
+#startButton {
+  padding: 15px 40px;
+  border: 2px solid black;
+  background: transparent;
+  color: black;
+  border-radius: 30px;
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Game Over Screen */
+#gameOverScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#finalScoreText {
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 30px;
+}
+
+#restartButton {
+  margin-top: 20px;
+  padding: 12px 32px;
+  border: 2px solid red;
+  background: black;
+  color: white;
+  border-radius: 25px;
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Pause Screen */
+#pauseScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+#pauseRestartButton {
+  padding: 12px 32px;
+  border: 2px solid red;
+  background: black;
+  color: white;
+  border-radius: 25px;
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.pauseHint {
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+/* Titles */
+.title {
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 100px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Game Container */
+#gameContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1600px;
+  height: 1080px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+/* Background Canvas */
+#bgCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Foreground Canvas */
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  z-index: 2;
+}
+
+/* Side Margins */
+#marginLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 160px;
+  height: 1080px;
+  z-index: 3;
+  margin-left: -160px;
+}
+
+#marginRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 160px;
+  height: 1080px;
+  z-index: 3;
+  margin-right: -160px;
+}
+
+/* HUD */
+#healthDisplay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-780px, -520px);
+  color: rgb(0, 0, 0);
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 30px;
+  z-index: 10;
+}
+
+#scoreDisplay {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(780px, -520px);
+  color: black;
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 30px;
+  z-index: 10;
+}
+
+#waveDisplay {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(780px, -480px);
+  color: black;
+  font-family: "Game Paused Demo", Arial, sans-serif;
+  font-size: 25px;
+  z-index: 10;
+}

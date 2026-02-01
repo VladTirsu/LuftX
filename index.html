@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LuftX - Plane Shooter</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+  <!-- Start Screen -->
+  <div id="startScreen">
+    <img id="startBackground" src="images/arcadestart.jpg" alt="Start Background">
+    <div class="title">LuftX</div>
+    <button id="startButton">Start</button>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div id="gameOverScreen">
+    <div class="title">Game Over</div>
+    <div id="finalScoreText">Final Score: 0</div>
+    <button id="restartButton">Restart</button>
+  </div>
+
+  <!-- Pause Screen -->
+  <div id="pauseScreen">
+    <div class="title">Paused</div>
+    <button id="pauseRestartButton">Restart</button>
+    <div class="pauseHint">Press ESC to resume</div>
+  </div>
+
+  <!-- HUD -->
+  <div id="healthDisplay">Lives: ⚡⚡⚡</div>
+  <div id="scoreDisplay">Score: 0</div>
+  <div id="waveDisplay">Wave: 1</div>
+
+  <!-- Game Container -->
+  <div id="gameContainer">
+    <img id="marginLeft" src="images/marginleft.png" alt="Left Margin">
+    <img id="marginRight" src="images/marginright.png" alt="Right Margin">
+    <canvas id="bgCanvas" width="1600" height="1080"></canvas>
+    <canvas id="canvas" width="1600" height="1080"></canvas>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
