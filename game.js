@@ -1,8 +1,57 @@
-
 import { global } from "./global.js";
 import { Player } from "./GameObjects/player.js";
 import { Bullet } from "./GameObjects/bullet.js";
 import { Enemy } from "./GameObjects/enemy.js";
+
+// ===== IMAGE PRELOADER =====
+const imageSources = [
+    'images/enemychopper1.png',
+    'images/enemychopper2.png',
+    'images/enemychopper3.png',
+    'images/enemychopper4.png',
+    'images/jet1.png',
+    'images/jet2.png',
+    'images/enemyjet.png',
+    'images/MainBullet.png',
+    'images/gamebg.jpg',
+    'images/marginleft.png',
+    'images/marginright.png',
+    'images/arcadestart.jpg'
+];
+
+let loadedImagesCount = 0;
+let imagesReady = false;
+
+function preloadImages(callback) {
+    if (imageSources.length === 0) {
+        callback();
+        return;
+    }
+    
+    console.log('🔄 Preloading images...');
+    
+    imageSources.forEach(src => {
+        const img = new Image();
+        img.onload = function() {
+            loadedImagesCount++;
+            console.log(`✅ Loaded (${loadedImagesCount}/${imageSources.length}): ${src}`);
+            if (loadedImagesCount === imageSources.length) {
+                console.log('🎮 All images loaded! Game ready.');
+                imagesReady = true;
+                callback();
+            }
+        };
+        img.onerror = function() {
+            console.error(`❌ Failed to load: ${src}`);
+            loadedImagesCount++;
+            if (loadedImagesCount === imageSources.length) {
+                imagesReady = true;
+                callback();
+            }
+        };
+        img.src = src;
+    });
+}
 
 // Background setup
 const bgCanvas = document.getElementById("bgCanvas");
@@ -73,6 +122,13 @@ function spawnWave() {
 
 // Start a new game
 function startGame() {
+    // Don't start if images aren't loaded yet
+    if (!imagesReady) {
+        console.log('⏳ Waiting for images to load...');
+        setTimeout(startGame, 100);
+        return;
+    }
+    
     // Reset all game variables
     global.allGameObjects = [];
     global.hearts = 3;
@@ -83,15 +139,15 @@ function startGame() {
     global.paused = false;
     waveTimer = 0;
     bgY1 = 0;
-
+    
     // Create player in center bottom
     player = new Player(global.canvas.width / 2 - 100, global.canvas.height - 250);
-
+    
     // Hide all screens
     startScreen.style.display = "none";
     gameOverScreen.style.display = "none";
     pauseScreen.style.display = "none";
-
+    
     // Start first wave and game loop
     spawnWave();
     requestAnimationFrame(gameLoop);
@@ -105,7 +161,7 @@ document.addEventListener("keydown", function(e) {
         pauseScreen.style.display = global.paused ? "flex" : "none";
         return;
     }
-
+    
     // Movement keys
     if (e.key === "w") global.keys.w = true;
     if (e.key === "a") global.keys.a = true;
@@ -170,7 +226,7 @@ function gameLoop(totalTime) {
         }
         return;
     }
-
+    
     // Don't update if paused
     if (global.paused) {
         requestAnimationFrame(gameLoop);
@@ -180,21 +236,17 @@ function gameLoop(totalTime) {
     // Update and draw all game objects
     for (let i = 0; i < global.allGameObjects.length; i++) {
         let obj = global.allGameObjects[i];
-        
         if (obj.active === false) {
             continue;
         }
-        
         obj.update();
         obj.draw();
         
         // Check collisions with other objects
         for (let j = 0; j < global.allGameObjects.length; j++) {
             if (i === j) continue;
-            
             let otherObj = global.allGameObjects[j];
             if (otherObj.active === false) continue;
-            
             if (global.checkCollision(obj, otherObj)) {
                 obj.reactToCollision(otherObj);
             }
@@ -232,3 +284,8 @@ function gameLoop(totalTime) {
 startButton.addEventListener("click", startGame);
 restartButton.addEventListener("click", startGame);
 pauseRestartButton.addEventListener("click", startGame);
+
+// ===== START PRELOADING IMAGES ON PAGE LOAD =====
+preloadImages(() => {
+    console.log('✅ Images preloaded, game ready to start!');
+});
